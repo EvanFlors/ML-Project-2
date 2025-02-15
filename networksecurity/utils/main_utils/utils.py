@@ -1,6 +1,6 @@
 import yaml
-from networksecurity.exception import CustomException
-from networksecurity.logging import logging
+from networksecurity.exception.exception import CustomException
+from networksecurity.logging import logger
 import os, sys
 import numpy as np
 import dill
