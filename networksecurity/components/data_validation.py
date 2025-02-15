@@ -41,20 +41,19 @@ class DataValidation:
         d1 = base_df[column]
         d2 = current_df[column]
         is_same_dist = ks_2samp(d1, d2)
-        if is_same_dist.pvalue >= threshold:
+        if threshold <= is_same_dist.pvalue:
           is_found = False
         else:
           is_found = True
           status = False
         report.update({column: {
-          "p_value": is_same_dist.pvalue,
+          "p_value": float(is_same_dist.pvalue),
           "drift_status": is_found, 
         }})
       drift_report_file_path = self.data_validation_config.drift_report_file_path
       
       dir_path = os.path.dirname(drift_report_file_path)
       os.makedirs(dir_path, exist_ok = True)
-      
       write_yaml_file(file_path = drift_report_file_path, content = report)
 
     except Exception as e:
