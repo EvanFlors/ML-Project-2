@@ -1,12 +1,16 @@
+import os, sys
+import pandas as pd
+from scipy.stats import ks_2samp
+
 from networksecurity.utils.main_utils.utils import read_yaml_file, write_yaml_file
+
+from networksecurity.constants.training_pipeline import SCHEMA_FILE_PATH
+
 from networksecurity.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 from networksecurity.entity.config_entity import DataValidationConfig
+
 from networksecurity.exception.exception import CustomException
 from networksecurity.logging import logger
-from networksecurity.constants.training_pipeline import SCHEMA_FILE_PATH
-from scipy.stats import ks_2samp
-import pandas as pd
-import os, sys
 
 class DataValidation:
   def __init__(self, data_validation_config: DataValidationConfig, data_ingestion_artifact: DataIngestionArtifact):

@@ -2,29 +2,44 @@ import sys
 
 from networksecurity.components.data_ingestion import DataIngestion
 from networksecurity.components.data_validation import DataValidation
+from networksecurity.components.data_transformation import DataTransformation
+
+from networksecurity.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from networksecurity.entity.config_entity import TrainingPipelineConfig
+
 from networksecurity.exception.exception import CustomException
 from networksecurity.logging import logger
-from networksecurity.entity.config_entity import DataIngestionConfig, DataValidationConfig
-from networksecurity.entity.config_entity import TrainingPipelineConfig
 
 if __name__ == "__main__":
   try:
     trainingPipelineConfig = TrainingPipelineConfig()
-    dataIngestionConfig = DataIngestionConfig(trainingPipelineConfig)
-    data_ingestion = DataIngestion(dataIngestionConfig)
   
     logger.logging.info("Initiate the data ingestion.")
+    
+    dataIngestionConfig = DataIngestionConfig(trainingPipelineConfig)
+    data_ingestion = DataIngestion(dataIngestionConfig)
     dataIngestionArtifact = data_ingestion.initiate_data_ingestion()
-    logger.logging.info("Data ingestion completed.")
     print(dataIngestionArtifact)
-
-    dataValidationConfig = DataValidationConfig(trainingPipelineConfig)
-    data_validation = DataValidation(dataValidationConfig, dataIngestionArtifact)
+    
+    logger.logging.info("Data ingestion completed.")
 
     logger.logging.info("Initiate the data validation.")
-    dataValidationArtifact =data_validation.initiate_data_validation()
-    logger.logging.info("Data validation completed.")
+    
+    dataValidationConfig = DataValidationConfig(trainingPipelineConfig)
+    data_validation = DataValidation(dataValidationConfig, dataIngestionArtifact)
+    dataValidationArtifact = data_validation.initiate_data_validation()
     print(dataValidationArtifact)
+  
+    logger.logging.info("Data validation completed.")
+    
+    logger.logging.info("Initiate the data transformation.")
+    
+    dataTransformationConfig = DataTransformationConfig(trainingPipelineConfig)
+    data_transformation = DataTransformation(dataTransformationConfig, dataValidationArtifact)
+    dataTransformationArtifact = data_transformation.initiate_data_transformation()
+    print(dataValidationArtifact)
+    
+    logger.logging.info("Data transformation completed.")
     
   except Exception as e:
     raise CustomException(e, sys)
