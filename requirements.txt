@@ -9,5 +9,6 @@ scikit-learn
 dill
 pyaml
 mlflow
+fastapi
 
 -e .
