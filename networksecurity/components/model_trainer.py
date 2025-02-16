@@ -41,11 +41,11 @@ class ModelTrainer:
     
   def train_model(self, x_train, y_train, x_test, y_test):
     models = {
-      "Logistic Regression": LogisticRegression(),
+      "Logistic Regression": LogisticRegression(verbose = 1),
       "K-Nearest Neighbours": KNeighborsClassifier(),
       "Decision Tree": DecisionTreeClassifier(),
       "Random Forest": RandomForestClassifier(verbose = 1),
-      "AdaBoost": AdaBoostClassifier(verbose = 1),
+      "AdaBoost": AdaBoostClassifier(),
       "Gradient Boosting": GradientBoostingClassifier(verbose = 1)
     }
     

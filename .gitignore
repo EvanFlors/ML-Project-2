@@ -132,9 +132,11 @@ celerybeat.pid
 .catboost_info
 .env
 .venv
+.mlruns
 artifacts/
 catboost_info/
 env/
+mlruns/
 venv/
 ENV/
 env.bak/

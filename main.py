@@ -33,13 +33,13 @@ if __name__ == "__main__":
     dataTransformationConfig = DataTransformationConfig(trainingPipelineConfig)
     data_transformation = DataTransformation(dataTransformationConfig, dataValidationArtifact)
     dataTransformationArtifact = data_transformation.initiate_data_transformation()
-    print(dataValidationArtifact)
+    print(dataTransformationArtifact)
     logger.logging.info("Data transformation completed.")
     
     logger.logging.info("Model Training sstared")
-    model_trainer_config=ModelTrainerConfig(trainingPipelineConfig)
-    model_trainer=ModelTrainer(model_trainer_config=model_trainer_config,data_transformation_artifact=dataTransformationArtifact)
-    model_trainer_artifact=model_trainer.initiate_model_trainer()
+    model_trainer_config = ModelTrainerConfig(trainingPipelineConfig)
+    model_trainer = ModelTrainer(model_trainer_config = model_trainer_config, data_transformation_artifact = dataTransformationArtifact)
+    model_trainer_artifact = model_trainer.initiate_model_trainer()
     logger.logging.info("Model Training completed.")
     
   except Exception as e:
