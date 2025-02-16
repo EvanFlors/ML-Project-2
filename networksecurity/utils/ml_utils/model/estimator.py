@@ -5,7 +5,7 @@ from networksecurity.logging.logger import logging
 
 from networksecurity.constants.training_pipeline import SAVED_MODEL_DIR, MODEL_FILE_NAME
 
-class NetworkMode:
+class NetworkModel:
   
   def __init__(self, preprocessor, model):
     try:
