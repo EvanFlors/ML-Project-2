@@ -56,12 +56,12 @@ async def train_route():
   except Exception as e:
     raise CustomException(e, sys)
   
-@app.get("/predict")
+@app.post("/predict")
 async def predict_route(request: Request, file: UploadFile = File(...)):
   try:
     df = pd.read_csv(file.file)
-    preprocessor = load_object(file_path = "artifacts/preprocessor.pkl")
-    final_model = load_object(file_path = "artifacts/model.pkl")
+    preprocessor = load_object(file_path = "final_model/preprocessor.pkl")
+    final_model = load_object(file_path = "final_model/model.pkl")
     network_model = NetworkModel(preprocessor = preprocessor, model = final_model)
     print(df.iloc[0])
     y_pred = network_model.predict(df)
@@ -70,7 +70,7 @@ async def predict_route(request: Request, file: UploadFile = File(...)):
     print(df["predicted_column"])
     df.to_csv("prediction_output/output.csv", index = False)
     table_html = df.to_html(classes = "table table-striped")
-    return templates.TemplateResponse("predict.html", {"request": request, "table": table_html})
+    return templates.TemplateResponse("table.html", {"request": request, "table": table_html})    
   except Exception as e:
     raise CustomException(e, sys)
 
